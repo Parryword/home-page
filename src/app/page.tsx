@@ -123,7 +123,7 @@ export default function Home() {
                   boxShadow: "0 8px 24px rgba(23, 32, 42, 0.06)",
                   transition: "border-color 160ms ease, box-shadow 160ms ease",
                   "&:focus-within": {
-                    borderColor: "#5c6f82",
+                    borderColor: "#17202a",
                     boxShadow: "0 10px 30px rgba(23, 32, 42, 0.1)",
                   },
                 }}
