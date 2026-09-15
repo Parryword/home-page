@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import Bookmarks from "./components/bookmarks";
 import {
   Box,
   Button,
@@ -28,6 +29,7 @@ export default function Home() {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [providerKey, setProviderKey] = useState("google");
+  const [showBookmarks, setShowBookmarks] = useState(false);
   const provider = providers.find(({ key }) => key === providerKey) ?? providers[0];
 
   function submitSearch(event: FormEvent<HTMLFormElement>) {
@@ -46,14 +48,29 @@ export default function Home() {
       sx={{
         minHeight: "100vh",
         display: "flex",
-        alignItems: "center",
+        alignItems: showBookmarks ? "flex-start" : "center",
         justifyContent: "center",
         bgcolor: "#f6f7f9",
         px: 2,
+        py: 3,
+        position: "relative",
       }}
     >
+      <Button
+        type="button"
+        variant="outlined"
+        onClick={() => setShowBookmarks((visible) => !visible)}
+        aria-pressed={showBookmarks}
+        sx={{ position: "absolute", top: 24, right: 24 }}
+      >
+        {showBookmarks ? "Search" : "Bookmarks"}
+      </Button>
       <Container maxWidth="md">
-        <Box sx={{ textAlign: "center" }}>
+        <Box sx={{ textAlign: showBookmarks ? "left" : "center", pt: showBookmarks ? 8 : 0 }}>
+          {showBookmarks ? (
+            <Bookmarks />
+          ) : (
+            <>
           <Typography
             component="h1"
             sx={{
@@ -161,6 +178,8 @@ export default function Home() {
           >
             Take me somewhere random
           </MuiLink>
+            </>
+          )}
         </Box>
       </Container>
     </Box>
