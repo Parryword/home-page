@@ -3,7 +3,6 @@
 import { useState } from "react";
 import {
 	Box,
-	IconButton,
 	Link,
 	Stack,
 	ToggleButton,
@@ -13,7 +12,6 @@ import {
 
 type Bookmark = {
 	name: string;
-	description: string;
 	url: string;
 };
 
@@ -28,36 +26,36 @@ const bookmarkGroups: BookmarkGroup[] = [
 		name: "News",
 		accent: "#d95d39",
 		items: [
-			{ name: "The Guardian", description: "Independent journalism", url: "https://www.theguardian.com" },
-			{ name: "Hacker News", description: "Tech and startups", url: "https://news.ycombinator.com" },
-			{ name: "NPR", description: "News and culture", url: "https://www.npr.org" },
+			{ name: "The Guardian", url: "https://www.theguardian.com" },
+			{ name: "Hacker News", url: "https://news.ycombinator.com" },
+			{ name: "NPR", url: "https://www.npr.org" },
 		],
 	},
 	{
 		name: "Development",
 		accent: "#2d7f6e",
 		items: [
-			{ name: "GitHub", description: "Code and collaboration", url: "https://github.com" },
-			{ name: "MDN Web Docs", description: "Web platform reference", url: "https://developer.mozilla.org" },
-			{ name: "Stack Overflow", description: "Questions and answers", url: "https://stackoverflow.com" },
+			{ name: "GitHub", url: "https://github.com" },
+			{ name: "MDN Web Docs", url: "https://developer.mozilla.org" },
+			{ name: "Stack Overflow", url: "https://stackoverflow.com" },
 		],
 	},
 	{
 		name: "Forums",
 		accent: "#6a5acd",
 		items: [
-			{ name: "Reddit", description: "Communities and conversation", url: "https://www.reddit.com" },
-			{ name: "Lobsters", description: "Computing-focused discussion", url: "https://lobste.rs" },
-			{ name: "Product Hunt", description: "New products and ideas", url: "https://www.producthunt.com" },
+			{ name: "Reddit", url: "https://www.reddit.com" },
+			{ name: "Lobsters", url: "https://lobste.rs" },
+			{ name: "Product Hunt", url: "https://www.producthunt.com" },
 		],
 	},
 	{
 		name: "Reference",
 		accent: "#b07a32",
 		items: [
-			{ name: "Wikipedia", description: "The free encyclopedia", url: "https://wikipedia.org" },
-			{ name: "Are.na", description: "A quiet place to collect", url: "https://www.are.na" },
-			{ name: "Internet Archive", description: "Universal access to knowledge", url: "https://archive.org" },
+			{ name: "Wikipedia", url: "https://wikipedia.org" },
+			{ name: "Are.na", url: "https://www.are.na" },
+			{ name: "Internet Archive", url: "https://archive.org" },
 		],
 	},
 ];
@@ -123,7 +121,6 @@ export default function Bookmarks() {
 								>
 									<Box>
 										<Typography sx={{ fontWeight: 650 }}>{bookmark.name}</Typography>
-										<Typography color="text.secondary" variant="body2">{bookmark.description}</Typography>
 									</Box>
 									<Typography aria-hidden="true" sx={{ color: group.accent, fontSize: "1.25rem" }}>↗</Typography>
 								</Link>
