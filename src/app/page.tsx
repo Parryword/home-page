@@ -1,69 +1,81 @@
-import Image from "next/image";
+"use client";
+
+import { FormEvent, useState } from "react";
+import Link from "next/link";
+
+const providers = [
+  { name: "Google", key: "google", url: "https://www.google.com/search?q=" },
+  { name: "Bing", key: "bing", url: "https://www.bing.com/search?q=" },
+  { name: "DuckDuckGo", key: "duckduckgo", url: "https://duckduckgo.com/?q=" },
+  { name: "Yandex", key: "yandex", url: "https://yandex.com/search/?text=" },
+  { name: "Wikipedia", key: "wikipedia", url: "https://en.wikipedia.org/wiki/Special:Search?search=" },
+  { name: "Baidu Baike", key: "baidubaike", url: "https://baike.baidu.com/search?word=" },
+];
 
 export default function Home() {
+  const [query, setQuery] = useState("");
+  const [providerKey, setProviderKey] = useState("google");
+  const provider = providers.find(({ key }) => key === providerKey) ?? providers[0];
+
+  function submitSearch(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const trimmedQuery = query.trim();
+    if (trimmedQuery) window.location.href = `${provider.url}${encodeURIComponent(trimmedQuery)}`;
+  }
+
+  function openRandomWikipedia() {
+    window.open("https://en.wikipedia.org/wiki/Special:Random", "_blank", "noopener,noreferrer");
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="home-shell">
+      <header className="topbar">
+        <Link className="wordmark" href="/" aria-label="Nook home">nook<span>.</span></Link>
+        <p className="date-label">A quiet place to begin</p>
+      </header>
+
+      <section className="search-stage" aria-labelledby="welcome-heading">
+        <div className="intro">
+          <p className="eyebrow">Good morning</p>
+          <h1 id="welcome-heading">What are you looking for?</h1>
+          <p className="subtitle">Search the web, your way.</p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+
+        <form className="search-form" onSubmit={submitSearch}>
+          <div className="search-box">
+            <span className="search-icon" aria-hidden="true">⌕</span>
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder={`Search with ${provider.name}`}
+              aria-label={`Search with ${provider.name}`}
+              autoFocus
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            <button className="submit-button" type="submit" aria-label="Search">↵</button>
+          </div>
+          <div className="provider-row" aria-label="Search provider">
+            {providers.map((item) => (
+              <button
+                className={`provider-button ${item.key === providerKey ? "selected" : ""}`}
+                type="button"
+                key={item.key}
+                onClick={() => setProviderKey(item.key)}
+              >
+                {item.name}
+              </button>
+            ))}
+          </div>
+        </form>
+
+        <button className="curiosity-link" type="button" onClick={openRandomWikipedia}>
+          <span aria-hidden="true">✦</span> Take me somewhere interesting
+        </button>
+      </section>
+
+      <footer className="footer-note">
+        <span>Built for small questions and big rabbit holes.</span>
+        <span className="keyboard-hint"><kbd>⌘</kbd> <kbd>K</kbd> to focus search</span>
+      </footer>
+    </main>
   );
 }
