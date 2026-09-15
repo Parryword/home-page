@@ -146,7 +146,7 @@ export default function Home() {
                   disableElevation
                   sx={{ minWidth: 0, height: 48, px: 2, borderRadius: 1.5 }}
                 >
-                  Go
+                  Search
                 </Button>
               </Box>
             </Box>
