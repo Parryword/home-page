@@ -88,7 +88,7 @@ export default function Home() {
                   "& .MuiOutlinedInput-root": {
                     height: "100%",
                     borderRadius: { xs: 2, sm: "8px 0 0 8px" },
-                    "& fieldset": { borderColor: "#dfe3e8", borderRight: { sm: 0 } },
+                    "& fieldset": { borderColor: "#dfe3e8" },
                   },
                 }}
               >
