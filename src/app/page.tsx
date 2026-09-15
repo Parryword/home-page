@@ -98,7 +98,7 @@ export default function Home() {
                   value={providerKey}
                   label="Engine"
                   onChange={(event) => setProviderKey(event.target.value)}
-                  sx={{ height: "100%" }}
+                  sx={{ height: "100%", bgcolor: "background.paper" }}
                 >
                   {providers.map((option) => (
                     <MenuItem key={option.key} value={option.key}>
