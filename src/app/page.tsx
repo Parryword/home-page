@@ -26,6 +26,28 @@ const providers = [
   { name: "Baidu Baike", key: "baidubaike", url: "https://baike.baidu.com/search?word=" },
 ];
 
+const formSx = {
+  display: "flex",
+  alignItems: "stretch",
+  bgcolor: "background.paper",
+  border: 1,
+  borderColor: "divider",
+  borderRadius: 1,
+  boxShadow: 1,
+  "&:focus-within": {
+    borderColor: "primary.main",
+    boxShadow: "0 0 0 .25rem rgba(13, 110, 253, .25)",
+  },
+};
+
+const selectSx = {
+  height: "100%",
+  borderRadius: 0,
+  "& .MuiOutlinedInput-notchedOutline": { border: 0 },
+  "& fieldset": { border: 0 },
+  "& .MuiSelect-select": { borderRight: 1, borderColor: "divider" },
+};
+
 const theme = createTheme({
   palette: {
     primary: { main: "#0d6efd" },
@@ -76,11 +98,11 @@ export default function Home() {
             Search the web, your way.
           </Typography>
 
-          <Box component="form" onSubmit={submitSearch} sx={{ display: "flex", alignItems: "stretch", bgcolor: "background.paper", border: 1, borderColor: "divider", borderRadius: 1, boxShadow: 1, overflow: "hidden", "&:focus-within": { borderColor: "primary.main", boxShadow: "0 0 0 .25rem rgba(13, 110, 253, .25)" } }}>
-            <FormControl sx={{ minWidth: { xs: 118, sm: 150 }, borderRight: 1, borderColor: "divider" }}>
+          <Box component="form" onSubmit={submitSearch} sx={formSx}>
+            <FormControl sx={{ minWidth: { xs: 118, sm: 150 } }}>
               <InputLabel id="provider-label">Engine</InputLabel>
-              <Select labelId="provider-label" value={providerKey} label="Engine" onChange={(event) => setProviderKey(event.target.value)} sx={{ height: "100%", borderRadius: 0, "& fieldset": { border: 0 } }}>
-                {providers.map((item) => <MenuItem value={item.key} key={item.key}>{item.name}</MenuItem>)}
+              <Select labelId="provider-label" value={providerKey} label="Engine" onChange={(event) => setProviderKey(event.target.value)} sx={selectSx}>
+                {providers.map(({ key, name }) => <MenuItem value={key} key={key}>{name}</MenuItem>)}
               </Select>
             </FormControl>
             <InputBase value={query} onChange={(event) => setQuery(event.target.value)} placeholder={`Search with ${provider.name}`} inputProps={{ "aria-label": `Search with ${provider.name}`, autoFocus: true }} sx={{ flex: 1, minWidth: 0, px: 2, fontSize: 16 }} />
@@ -94,7 +116,11 @@ export default function Home() {
 
         <Box component="footer" sx={{ display: "flex", flexDirection: { xs: "column", sm: "row" }, justifyContent: "space-between", alignItems: { xs: "flex-start", sm: "center" }, gap: 1.5, borderTop: 1, borderColor: "divider", pt: 2 }}>
           <Typography variant="caption" color="text.secondary" sx={{ letterSpacing: ".04em" }}>Built for small questions and big rabbit holes.</Typography>
-          <Typography variant="caption" color="text.secondary" sx={{ letterSpacing: ".04em", alignSelf: { xs: "flex-end", sm: "auto" } }}><Box component="kbd" sx={{ border: 1, borderColor: "divider", borderRadius: .5, px: .6, py: .2, mr: .4 }}>⌘</Box><Box component="kbd" sx={{ border: 1, borderColor: "divider", borderRadius: .5, px: .6, py: .2, mr: .5 }}>K</Box> to focus search</Typography>
+          <Typography variant="caption" color="text.secondary" sx={{ letterSpacing: ".04em", alignSelf: { xs: "flex-end", sm: "auto" } }}>
+            <Box component="kbd" sx={{ border: 1, borderColor: "divider", borderRadius: .5, px: .6, py: .2, mr: .4 }}>⌘</Box>
+            <Box component="kbd" sx={{ border: 1, borderColor: "divider", borderRadius: .5, px: .6, py: .2, mr: .5 }}>K</Box>
+            to focus search
+          </Typography>
         </Box>
       </Box>
     </ThemeProvider>
