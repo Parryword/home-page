@@ -89,6 +89,7 @@ export default function Home() {
                     height: "100%",
                     borderRadius: { xs: 2, sm: "8px 0 0 8px" },
                     "& fieldset": { borderColor: "#dfe3e8" },
+                    "&.Mui-focused fieldset": { borderColor: "#1976d2" },
                   },
                 }}
               >
@@ -123,7 +124,7 @@ export default function Home() {
                   boxShadow: "0 8px 24px rgba(23, 32, 42, 0.06)",
                   transition: "border-color 160ms ease, box-shadow 160ms ease",
                   "&:focus-within": {
-                    borderColor: "#17202a",
+                    borderColor: "#1976d2",
                     boxShadow: "0 10px 30px rgba(23, 32, 42, 0.1)",
                   },
                 }}
